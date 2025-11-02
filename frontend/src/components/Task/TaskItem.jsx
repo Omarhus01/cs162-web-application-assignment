@@ -24,7 +24,7 @@ import ReactDOM from 'react-dom';
 import { Card, Button, Form, Badge } from 'react-bootstrap';
 import { tasksAPI, listsAPI } from '../../services/api';
 
-function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1 }) {
+function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1, showCompleted = true }) {
   // Component state
   const [isCollapsed, setIsCollapsed] = useState(task.collapsed || false);
   const [showSubtaskForm, setShowSubtaskForm] = useState(false);
@@ -38,6 +38,7 @@ function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1 }) {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const [priorityMenuOpen, setPriorityMenuOpen] = useState(false);
+
   const [priorityMenuPosition, setPriorityMenuPosition] = useState({ top: 0, left: 0 });
   const priorityMenuRef = useRef(null);
   const priorityBadgeRef = useRef(null);
@@ -83,6 +84,11 @@ function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1 }) {
   // Check nesting limits
   const canHaveSubtasks = depth < 5; // Extension 1: Allow up to 5 levels deep
   const hasSubtasks = task.subtasks && task.subtasks.length > 0;
+  
+  // Calculate completed subtasks count
+  const completedSubtasksCount = hasSubtasks 
+    ? task.subtasks.filter(st => st.completed).length 
+    : 0;
 
   // Priority badge colors (traffic light system)
   const priorityColors = {
@@ -650,8 +656,17 @@ function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1 }) {
 
               {/* Subtask Count */}
               {hasSubtasks && (
-                <span className="subtask-count" title={`${task.subtasks.length} subtask(s)`}>
-                  {task.subtasks.length}
+                <span 
+                  className="subtask-count" 
+                  title={isCollapsed 
+                    ? `${completedSubtasksCount} of ${task.subtasks.length} subtask(s) completed` 
+                    : `${task.subtasks.length} subtask(s)`
+                  }
+                >
+                  {isCollapsed 
+                    ? `${completedSubtasksCount}/${task.subtasks.length}` 
+                    : task.subtasks.length
+                  }
                 </span>
               )}
             </div>
@@ -901,16 +916,19 @@ function TaskItem({ task, onUpdate, allLists, currentListId, depth = 1 }) {
       {/* Render Subtasks Recursively */}
       {!isCollapsed && hasSubtasks && (
         <div className="mt-2">
-          {task.subtasks.map((subtask) => (
-            <TaskItem
-              key={subtask.id}
-              task={subtask}
-              onUpdate={onUpdate}
-              allLists={allLists}
-              currentListId={currentListId}
-              depth={depth + 1}
-            />
-          ))}
+          {task.subtasks
+            .filter((subtask) => showCompleted || !subtask.completed)
+            .map((subtask) => (
+              <TaskItem
+                key={subtask.id}
+                task={subtask}
+                onUpdate={onUpdate}
+                allLists={allLists}
+                currentListId={currentListId}
+                depth={depth + 1}
+                showCompleted={showCompleted}
+              />
+            ))}
         </div>
       )}
     </div>

@@ -465,6 +465,7 @@ function ListView() {
                   allLists={allLists}
                   currentListId={parseInt(listId)}
                   depth={1}
+                  showCompleted={showCompleted}
                 />
               ))}
           </div>

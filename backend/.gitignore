@@ -14,7 +14,9 @@ ENV/
 htmlcov/
 
 # Database
-instance/
+instance/*.db
+instance/*.sqlite
+instance/*.sqlite3
 *.db
 *.sqlite
 *.sqlite3

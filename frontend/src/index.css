@@ -1,0 +1,1016 @@
+/* =============================================================================
+   CYBER NEON THEME - Dark cyberpunk aesthetic with glassmorphism
+   Colors: #00ff41 (green), #00ffff (cyan), #ff0064 (pink), #ffc800 (gold)
+============================================================================= */
+
+/* Body with fixed gradient background */
+body {
+  margin: 0;
+  /* System font stack for maximum compatibility */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  /* Smooth font rendering on macOS and Windows */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Dark gradient background (cyberpunk aesthetic) */
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+  background-attachment: fixed; /* Background stays in place while scrolling */
+  color: #e0e0e0; /* Light gray text for readability on dark background */
+  min-height: 100vh; /* Always fill viewport height */
+}
+
+/* Monospace font for code */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* =============================================================================
+   CUSTOM SCROLLBAR - Neon green gradient
+============================================================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00ff41, #00d9ff);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00d9ff, #00ff41);
+}
+
+/* =============================================================================
+   UTILITY CLASSES - Glassmorphism & Neon Effects
+============================================================================= */
+
+/* Glassmorphism card with backdrop blur */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Text with glow effect */
+.neon-text {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+/* Border with glow */
+.neon-border {
+  border: 2px solid #00ff41;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+}
+
+/* Box shadow glow */
+.neon-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5), 0 0 40px rgba(0, 255, 65, 0.2);
+}
+
+/* =============================================================================
+   GLOBAL TRANSITIONS - Smooth animations for all elements
+============================================================================= */
+
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   TASK ANIMATIONS - Fade & slide entry, dimmed when completed
+============================================================================= */
+
+.task-item {
+  animation: fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-item.completed {
+  opacity: 0.5;
+}
+
+.task-item.completed .task-card {
+  filter: grayscale(0.3);
+}
+
+/* =============================================================================
+   COLLAPSE BUTTON - LED style with hover effects
+   IMPORTANT: z-index:100 ensures button stays clickable above task cards
+============================================================================= */
+
+.collapse-btn {
+  width: 30px;
+  height: 30px;
+  padding: 4px 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevents squishing by long titles */
+  
+  background: rgba(0, 255, 65, 0.15);
+  border: 2px solid #00ff41;
+  border-radius: 6px;
+  color: #00ff41;
+  font-size: 16px;
+  font-weight: bold;
+  
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 100 !important; /* Critical for clickability */
+  transition: all 0.3s ease;
+}
+
+.collapse-btn:hover {
+  background: rgba(0, 255, 65, 0.4);
+  box-shadow: 0 0 25px #00ff41, 0 0 40px rgba(0, 255, 65, 0.6);
+  transform: scale(1.2);
+  text-shadow: 0 0 15px #00ff41;
+  border-color: #00ffff;
+  color: #00ffff;
+}
+
+.collapse-btn:active {
+  transform: scale(1.05);
+  background: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 30px #00ffff;
+}
+
+.collapse-btn:focus {
+  outline: none;
+  box-shadow: 0 0 30px #00ff41;
+}
+
+/* =============================================================================
+   TASK TITLE - Clickable with hover feedback
+============================================================================= */
+
+.task-title {
+  flex-grow: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #00ff41;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+  transition: all 0.3s ease;
+}
+
+.task-title:hover {
+  background-color: rgba(0, 255, 65, 0.1);
+  text-shadow: 0 0 10px #00ff41;
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: #00aa33;
+  text-shadow: 0 0 5px rgba(0, 170, 51, 0.5);
+}
+
+/* =============================================================================
+   TASK INDENTATION - Hierarchical nesting visualization
+   Extension 1: Supports 5 levels (MVP was 3 levels)
+   Colored borders show depth: green → cyan → orange
+============================================================================= */
+
+.task-indent-1 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.task-indent-2 {
+  margin-left: 30px;
+  border-left: 3px solid #00ff41;
+  padding-left: 15px;
+  box-shadow: -5px 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.task-indent-3 {
+  margin-left: 60px;
+  border-left: 3px solid #00ffff;
+  padding-left: 15px;
+  box-shadow: -5px 0 15px rgba(0, 255, 255, 0.3);
+}
+
+/* =============================================================================
+   PRIORITY BADGES - Traffic light system (red=high, yellow=medium, green=low)
+============================================================================= */
+
+.priority-badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid;
+  text-shadow: 0 0 5px currentColor;
+}
+
+.badge.bg-danger {
+  background: rgba(255, 0, 100, 0.2) !important;
+  border-color: #ff0064 !important;
+  color: #ff0064 !important;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.5);
+}
+
+.badge.bg-warning {
+  background: rgba(255, 200, 0, 0.2) !important;
+  border-color: #ffc800 !important;
+  color: #ffc800 !important;
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
+}
+
+.badge.bg-success {
+  background: rgba(0, 255, 65, 0.2) !important;
+  border-color: #00ff41 !important;
+  color: #00ff41 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* Subtask count badge */
+.subtask-count {
+  background: rgba(0, 255, 255, 0.2);
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  text-shadow: 0 0 5px #00ffff;
+}
+
+/* Action Menu */
+.action-menu-toggle {
+  color: #00ff41 !important;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 8px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+.action-menu-toggle:hover {
+  color: #00ffff !important;
+  text-shadow: 0 0 15px #00ffff;
+  transform: scale(1.2);
+}
+
+/* Task Card with Dark LED Style */
+.task-card {
+  background: rgba(15, 12, 41, 0.8) !important;
+  border: 2px solid #00ff41 !important;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: auto;
+}
+
+.task-card .card-body {
+  padding: 1rem !important;
+  position: relative;
+  z-index: auto;
+}
+
+.task-card:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 65, 0.6), 0 0 50px rgba(0, 255, 65, 0.3);
+  border-color: #00ffff !important;
+  transform: translateY(-2px);
+  z-index: auto;
+}
+
+.task-card.completed {
+  background: rgba(15, 12, 41, 0.5) !important;
+  border-color: #00aa33 !important;
+  box-shadow: 0 0 10px rgba(0, 170, 51, 0.3);
+}
+
+/* Task indent divs should NOT create stacking context */
+.task-item {
+  position: relative;
+  z-index: auto;
+}
+
+.task-indent-1,
+.task-indent-2,
+.task-indent-3 {
+  position: relative;
+  z-index: auto;
+}
+
+/* Create Task Section - Cyberpunk Style */
+.create-task-section {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 255, 255, 0.1)) !important;
+  border: 2px solid #00ff41 !important;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.create-task-section h5 {
+  color: #00ff41 !important;
+  font-weight: 700;
+  text-shadow: 0 0 15px #00ff41;
+}
+
+/* Control Buttons */
+.control-button {
+  background: rgba(0, 255, 65, 0.1) !important;
+  border: 2px solid #00ff41 !important;
+  color: #00ff41 !important;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+.control-button:hover {
+  background: rgba(0, 255, 65, 0.3) !important;
+  border-color: #00ffff !important;
+  color: #00ffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.6), 0 0 40px rgba(0, 255, 65, 0.3);
+  text-shadow: 0 0 10px #00ffff;
+}
+
+/* Info Card - Neon Style */
+.info-card {
+  background: linear-gradient(135deg, rgba(255, 0, 100, 0.1), rgba(255, 200, 0, 0.1)) !important;
+  border: 2px solid #ff0064 !important;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 100, 0.4);
+}
+
+.info-card h6 {
+  color: #ff0064;
+  text-shadow: 0 0 10px #ff0064;
+}
+
+.info-card li {
+  padding: 6px 0;
+  color: #ffa500;
+  text-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+}
+
+/* Custom Animated Checkbox */
+.form-check-input {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(0, 255, 65, 0.5) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+}
+
+.form-check-input:hover {
+  border-color: rgba(0, 217, 255, 0.7) !important;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.form-check-input:checked {
+  background: linear-gradient(135deg, #00ff41, #00d9ff) !important;
+  border-color: #00ff41 !important;
+  box-shadow: 0 0 25px rgba(0, 255, 65, 0.6), 
+              0 0 50px rgba(0, 255, 65, 0.3);
+  transform: scale(1.15);
+  animation: checkBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-check-input:focus {
+  border-color: rgba(0, 217, 255, 0.8) !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 217, 255, 0.25) !important;
+}
+
+@keyframes checkBounce {
+  0%, 100% { transform: scale(1.15); }
+  50% { transform: scale(1.3); }
+}
+
+/* Bootstrap Card Override */
+.card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-radius: 16px !important;
+}
+
+.card-body {
+  color: #e0e0e0 !important;
+  padding: 1.5rem !important;
+}
+
+.card-title {
+  color: #00ff41 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.card-text {
+  color: #00ff41 !important;
+}
+
+/* Form Controls - Glassmorphism Style */
+.form-control {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(0, 255, 65, 0.3) !important;
+  color: #e0e0e0 !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-control:hover {
+  border-color: rgba(0, 217, 255, 0.5) !important;
+  box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: #00d9ff !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 217, 255, 0.15),
+              0 0 30px rgba(0, 217, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+  color: rgba(224, 224, 224, 0.4) !important;
+  font-weight: 400;
+}
+
+/* Buttons - Modern Gradient Style */
+.btn-primary {
+  background: linear-gradient(135deg, #00ff41, #00d9ff) !important;
+  border: none !important;
+  color: #0a0a0f !important;
+  font-weight: 700;
+  text-shadow: none;
+  box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4);
+  border-radius: 12px !important;
+  padding: 0.65rem 1.5rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 255, 65, 0.6);
+  filter: brightness(1.1);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.4), rgba(0, 255, 255, 0.4)) !important;
+  border-color: #00ffff !important;
+  color: #00ffff !important;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.7);
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.btn-success {
+  background: rgba(0, 255, 65, 0.2) !important;
+  border: 2px solid #00ff41 !important;
+  color: #00ff41 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+}
+
+.btn-success:hover {
+  background: rgba(0, 255, 65, 0.4) !important;
+  box-shadow: 0 0 20px #00ff41;
+}
+
+.btn-danger, .btn-outline-danger {
+  background: rgba(255, 0, 100, 0.2) !important;
+  border: 2px solid #ff0064 !important;
+  color: #ff0064 !important;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.4);
+}
+
+.btn-danger:hover, .btn-outline-danger:hover {
+  background: rgba(255, 0, 100, 0.4) !important;
+  border-color: #ff0064 !important;
+  color: #ff0064 !important;
+  box-shadow: 0 0 20px #ff0064;
+}
+
+.btn-secondary {
+  background: rgba(128, 128, 128, 0.2) !important;
+  border: 2px solid #808080 !important;
+  color: #00ff41 !important;
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(128, 128, 128, 0.4) !important;
+  box-shadow: 0 0 15px rgba(128, 128, 128, 0.5);
+}
+
+.btn-light {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid #00ff41 !important;
+  color: #00ff41 !important;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.7);
+}
+
+.btn-light:hover {
+  background: rgba(0, 255, 65, 0.3) !important;
+  color: #00ffff !important;
+  box-shadow: 0 0 25px rgba(0, 255, 65, 0.7);
+  text-shadow: 0 0 10px #00ffff;
+}
+
+/* Navbar - Dark Cyberpunk */
+.navbar {
+  background: rgba(15, 12, 41, 0.95) !important;
+  border-bottom: 2px solid #00ff41;
+  box-shadow: 0 5px 20px rgba(0, 255, 65, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+  color: #00ff41 !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-shadow: 0 0 15px #00ff41;
+}
+
+.navbar-text {
+  color: #00ff41 !important;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+.btn-outline-light {
+  border: 2px solid #00ff41 !important;
+  color: #00ff41 !important;
+  background: rgba(0, 255, 65, 0.1) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.btn-outline-light:hover {
+  background: rgba(0, 255, 65, 0.3) !important;
+  border-color: #00ffff !important;
+  color: #00ffff !important;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+}
+
+/* Alerts - Neon Style */
+.alert {
+  background: rgba(255, 0, 100, 0.1) !important;
+  border: 2px solid #ff0064 !important;
+  color: #ff0064 !important;
+  box-shadow: 0 0 15px rgba(255, 0, 100, 0.4);
+}
+
+.alert-danger {
+  border-color: #ff0064 !important;
+  color: #ff0064 !important;
+  text-shadow: 0 0 5px rgba(255, 0, 100, 0.5);
+}
+
+.alert-info {
+  background: rgba(0, 255, 255, 0.1) !important;
+  border: 2px solid #00ffff !important;
+  color: #00ffff !important;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+/* =============================================================================
+   DROPDOWN MENU - Z-INDEX FIXES FOR NESTED CARDS
+   Problem: Dropdowns appear behind other cards due to stacking contexts
+   Solution: position:fixed + z-index:99999 breaks out of parent hierarchy
+============================================================================= */
+
+.dropdown-menu {
+  z-index: 99999 !important; /* Must be above all task cards */
+  background: rgba(15, 12, 41, 0.98) !important;
+  border: 2px solid #00ff41 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  position: fixed !important; /* Breaks out of stacking context */
+}
+
+.dropdown-menu.show {
+  z-index: 99999 !important;
+  position: fixed !important;
+}
+
+.dropdown {
+  position: static !important; /* Prevent creating stacking context */
+}
+
+.dropdown-toggle {
+  z-index: 1001;
+  position: relative;
+}
+
+.dropdown-menu.show {
+  z-index: 999999 !important;
+  position: fixed !important;
+  display: block !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+
+/* Specific fix for task card dropdowns */
+.task-card .dropdown-menu,
+.task-item .dropdown-menu {
+  z-index: 999999 !important;
+  position: fixed !important;
+}
+
+.dropdown-item {
+  color: #00ff41 !important;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 255, 65, 0.2) !important;
+  color: #00ffff !important;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.dropdown-header {
+  color: #00ffff !important;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+  font-weight: 700;
+}
+
+.dropdown-divider {
+  border-color: rgba(0, 255, 65, 0.3);
+}
+
+/* Form Switch - LED Style */
+.form-switch .form-check-input {
+  width: 50px;
+  height: 25px;
+  background-color: rgba(128, 128, 128, 0.3);
+  border: 2px solid #808080;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #00ff41 !important;
+  border-color: #00ff41 !important;
+  box-shadow: 0 0 20px #00ff41, inset 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.form-check-label {
+  color: #00ff41;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #00ff41 !important;
+  text-shadow: 0 0 15px rgba(0, 255, 65, 0.7);
+  font-weight: 700;
+}
+
+/* Text colors */
+.text-muted {
+  color: #00aa33 !important;
+  text-shadow: 0 0 5px rgba(0, 170, 51, 0.5);
+}
+
+.text-white {
+  color: #00ff41 !important;
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.5rem;
+  color: #00ff41;
+  text-shadow: 0 0 20px #00ff41;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.8);
+  }
+}
+
+.task-card {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* Scrollbar - Dark Theme */
+::-webkit-scrollbar {
+  width: 12px;
+  background: rgba(15, 12, 41, 0.8);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 12, 41, 0.5);
+  border-left: 2px solid rgba(0, 255, 65, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ff41, #00ffff);
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00ffff, #00ff41);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
+}
+
+/* Task Item Styles */
+.task-item {
+  transition: all 0.2s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-item.completed {
+  opacity: 0.7;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #495057;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.collapse-btn:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.collapse-btn:focus {
+  outline: none;
+}
+
+.task-title {
+  cursor: pointer;
+  flex-grow: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.task-title:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Task Items - Infinite Nesting Support */
+.task-item {
+  overflow: visible !important;
+  max-width: 100%;
+  position: relative;
+}
+
+.task-card {
+  overflow: visible !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 400px; /* Increased to prevent vertical text breakage */
+  width: 100%;
+}
+
+.task-title {
+  flex: 1;
+  min-width: 0; /* Allow text to shrink */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto; /* Enable hyphenation for long words */
+}
+
+.task-title.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+/* Legacy indent classes (kept for backward compatibility) */
+.task-indent-1 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.task-indent-2 {
+  margin-left: 30px;
+  border-left: 3px solid #007bff;
+  padding-left: 15px;
+}
+
+.task-indent-3 {
+  margin-left: 60px;
+  border-left: 3px solid #28a745;
+  padding-left: 15px;
+}
+
+/* Priority Badges */
+.priority-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Subtask Count Badge */
+.subtask-count {
+  background-color: #6c757d;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Action Menu */
+.action-menu-toggle {
+  color: #6c757d;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 8px;
+  transition: color 0.2s ease;
+}
+
+.action-menu-toggle:hover {
+  color: #007bff;
+}
+
+/* Task Card - Glassmorphism */
+.task-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 65, 0.2) !important;
+  border-radius: 16px !important;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              0 0 20px rgba(0, 255, 65, 0.1) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: visible !important;
+}
+
+.task-card:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(0, 255, 65, 0.25) !important;
+  border-color: rgba(0, 217, 255, 0.4) !important;
+}
+
+.task-card.completed {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Create Task Section - Glassmorphism */
+.create-task-section {
+  background: rgba(0, 255, 65, 0.05) !important;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(0, 255, 65, 0.3) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+              0 0 30px rgba(0, 255, 65, 0.15) !important;
+  transition: all 0.3s ease;
+}
+
+.create-task-section:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+              0 0 40px rgba(0, 255, 65, 0.25) !important;
+}
+
+.create-task-section h5 {
+  color: #00ff41 !important;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+}
+
+/* Control Buttons */
+.control-button {
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-width: 2px !important;
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Info Card */
+.info-card {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border: none;
+  border-radius: 12px;
+}
+
+.info-card ul {
+  margin-bottom: 0;
+}
+
+.info-card li {
+  padding: 4px 0;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-item {
+  animation: slideIn 0.3s ease;
+}
+
+/* Custom Checkbox */
+.form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.form-check-input {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
